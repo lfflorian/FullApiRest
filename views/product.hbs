@@ -1,0 +1,22 @@
+<script>
+    let productList = document.createElement('ul')
+
+    const mheaders = new Headers();
+    mheaders.append('authorization', 'Bearer ' + localStorage.token)
+
+    fetch('/api/product', {
+        method: 'GET',
+        headers: mheaders
+    })
+    .then(res => res.json())
+    .then(data => {
+        data.products.nap(product => {
+            let text = document.createTextNode(product.name)
+            let elem = document.createElement('li')
+            elem.appendChild(text)
+            productList.appendChild(elem)
+        })
+
+        document.body.appendChild(productList)
+    })
+</script>
